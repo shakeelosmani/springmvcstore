@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/front_store">
+<body>
+	<div class="container-fluid" layout:fragment="content">
+	 <!-- Carousel starts -->
+              
+         <div id="carousel-example-generic" class="carousel slide">
+           <!-- Indicators -->
+           <ol class="carousel-indicators">
+             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+           </ol>
+
+           <!-- Wrapper for slides -->
+           <div class="carousel-inner">
+             <!-- Item -->
+             <div class="item active animated fadeInRight">
+               <img th:src="@{/resources/img/Dairy-products.jpg}" alt="" class="img-responsive" />
+               <div class="carousel-caption">
+                <h2 class="animated fadeInLeftBig">Dairy Product</h2>
+                 <p class="animated fadeInRightBig">The Healthiest Cows and Best Milk</p>
+               </div>
+             </div>
+             
+             <div class="item animated fadeInRight">
+               <img th:src="@{/resources/img/meat.jpg}" alt="" class="img-responsive" />
+               <div class="carousel-caption">
+                 <h2 class="animated fadeInLeftBig">Meat Products</h2>
+                 <p class="animated fadeInRightBig">Fresh and tender meat you would love</p>
+               </div>
+             </div>
+
+             <div class="item animated fadeInRight">
+               <img th:src="@{/resources/img/bakery.jpg}" alt="" class="img-responsive" />
+               <div class="carousel-caption">
+                 <h2 class="animated fadeInLeftBig">Bakery</h2>
+                 <p class="animated fadeInRightBig">Oven baked to perfection</p>
+               </div>
+             </div>          
+           </div>
+
+           <!-- Controls -->
+           <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+             <span class="icon-prev"></span>
+           </a>
+           <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+             <span class="icon-next"></span>
+           </a>
+         </div>
+         
+         <!-- carousel ends -->
+	
+		<div class="row">
+			<div class="col-xs-12 col-md-3">
+				<ul class="nav nav-pills nav-stacked">
+					<li th:each="category : ${categoryList}" th:class="${id} == ${category.id} ? 'active'">
+						<a th:href="@{/category(id=${category.id})}" th:text="${#strings.toUpperCase(category.name)}"></a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-md-9">
+				<div class="row">
+					<div class="col-xs-12 col-md-3" th:each="product : ${productList}">
+						<div class="thumbnail">
+							<img class="img-responsive" th:src="@{|/resources/upload/products/${product.name}.png|}" />
+							<div class="caption">
+								<p>
+									<b>Name:</b> <span th:text="${product.name}"></span>
+								</p>
+								<p>
+									<b>Price:</b> <span th:text="|${product.price} USD|"></span>
+								</p>
+								<p>
+									<a th:title="|addItem::${product.id}|" th:href="@{/addToCart(id=${product.id})}" class="btn btn-primary">
+										Add to cart
+									</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

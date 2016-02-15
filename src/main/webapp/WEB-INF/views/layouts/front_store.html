@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Simple Web Store with Admin panel in spring MVC" />
+	<meta name="author" content="Kaushik Koneru" />
+	
+	<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/simplestore.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/plugins/jquery.bxslider.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/font-awesome.min.css}" rel="stylesheet"/>
+	<link th:href="@{/resources/css/jquery.countdown.css}" rel="stylesheet"/>
+	<link th:href="@{/resources/css/sb-admin.css}" rel="stylesheet"/>
+	<link th:href="@{/resources/css/style.css}" rel="stylesheet"/>
+	
+	
+	<link rel="shortcut icon" th:href="@{/resources/img/favicon.png}" />
+	
+	<title>Simple Store</title>
+</head>
+<body>
+	<div id="wrap">
+	<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+    		<div class="container-fluid">
+        		<div class="navbar-header"><a class="navbar-brand" th:href="@{/}">Simple Store</a>
+            		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            		</button>
+        		</div>
+        	<div class="collapse navbar-collapse navbar-menubuilder">
+            	<ul class="nav navbar-nav navbar-left">
+                	<li><input id="getCartSize" type="hidden" th:value="@{/getCartSize}"/>
+						<a th:href="@{/cart}"> Cart <span id="nav-cart-size" class="badge"></span></a>
+                	</li>
+                	<li>
+                		<a th:href="@{/checkout}">Checkout &#x279f;</a>
+                	</li>
+            	</ul>
+            	<div th:if="${session.isEmpty() || !session.containsKey('username')}">
+            	<ul class="nav navbar-nav navbar-right">
+            		<li> 
+            			<a th:href="@{/login}">Login</a>
+            		</li>
+            		<li> 
+            			<a th:href="@{/register}">Register</a>
+            		</li>
+            	</ul>
+            	</div>
+				<div th:unless = "${session.isEmpty() || !session.containsKey('username')}">
+					<ul class="nav navbar-nav navbar-right">
+	            		<li> 
+	            			<span class="btn btn-info btnusername" th:text="${session.username}"></span>
+	            		</li>
+	            		<li>
+	            			<a th:href="@{/logout}"> LogOut</a>
+	            		</li>
+	            	</ul>
+				</div>
+        	</div>
+    	</div>
+	</div>
+	        		<div class="container-fluid" layout:fragment="content">
+			<section><h1>Good Morning</h1></section>
+		</div>
+	</div>
+	
+	<footer>
+	<br/>
+		<hr/>
+		<div class="container-fluid">
+			<p class="text-muted credit">&copy; Developed by <a href="#">Kaushik Koneru (KK)</a></p>
+		</div>
+		<br/><br/>
+	</footer>
+		
+	<script type="text/javascript" th:src="@{/resources/js/jquery-1.10.2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/plugins/jquery.validate.min.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/plugins/jquery.form.min.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/plugins/jquery.bxslider.min.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/custom.js}"></script>
+	<script type="text/javascript" th:src="@{/resources/js/jquery.carouFredSel-6.2.1-packed.js}"></script>
+ 	<script type="text/javascript">
+		$(window).load(function(){
+			$('.bxslider').bxSlider({
+				  mode: 'fade',
+				  auto:true,
+				  controls:false,
+				  captions: true
+				});
+		});
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$("#btnPrint").on("click", function () {
+	        var divContents = $(".printable").html();
+	        var printWindow = window.open('', '', 'height=400,width=800');
+	        printWindow.document.write('<html><head><title>Your order summary</title>');
+	        printWindow.document.write('</head><body >');
+	        printWindow.document.write(divContents);
+	        printWindow.document.write('</body></html>');
+	        printWindow.document.close();
+	        printWindow.print();
+	    });
+		
+	});
+    
+	</script>
+</body>
+</html>
